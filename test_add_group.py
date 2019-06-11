@@ -7,13 +7,6 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-def is_alert_present (wd):
-    try:
-        wd.switch_to_alert(). text
-        return  True
-    except:
-        return False
-
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
