@@ -1,6 +1,7 @@
 
 
 class Properties:
+
     def __init__(self, firstname,middlename,lastname,nickname,company,address,home,mobile,email ):
         self.firstname = firstname
         self.middlename = middlename
