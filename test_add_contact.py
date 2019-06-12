@@ -63,7 +63,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys("2008")
 
-    def filling_form_to_contact(self, wd):
+    def filling_form_to_contact(self, wd , Properties ):
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys("FFFFFF")
