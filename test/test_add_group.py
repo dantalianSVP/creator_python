@@ -2,12 +2,6 @@
 from model.group import Group
 
 
-@pytest.fixture
-def app(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
-
 def test_add_group(app):
     app.session.Login(username="admin", password="secret")
     app.group.create(Group(name="FTP", header="gasd", footer="qed"))
@@ -22,4 +16,3 @@ def test_add_empty_one_group(app):
     app.session.Login(username="admin", password="secret")
     app.group.create(Group(name="123", header="", footer=" "))
     app.session.logout()
-
