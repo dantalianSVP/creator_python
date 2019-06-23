@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from properties import Properties
-from addition_properties import Addition
-from fixture_cont import Application
+from model.properties import Properties
+from model.addition_properties import Addition
+from fixture.fixture_cont import Application
 
 @pytest.fixture
 def app(request):
