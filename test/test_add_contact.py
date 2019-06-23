@@ -1,15 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import pytest
 from model.properties import Properties
 from model.addition_properties import Addition
-from fixture.application import Application
-
-@pytest.fixture
-def app(request):
-    fuxture = Application()
-    request.addfinalizer(fuxture.destroy)
-    return fuxture
 
 
 # test-case one
