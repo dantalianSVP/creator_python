@@ -3,7 +3,7 @@
 import pytest
 from model.properties import Properties
 from model.addition_properties import Addition
-from fixture.fixture_cont import Application
+from fixture.application import Application
 
 @pytest.fixture
 def app(request):
