@@ -10,8 +10,6 @@ def app(request):
     request.addfinalizer(fixture.destroy)
     return fixture
 
-# ____Start test case
-
 def test_add_group(app):
     app.session.Login(username="admin", password="secret")
     app.group.create(Group(name="FTP", header="gasd", footer="qed"))
@@ -27,4 +25,3 @@ def test_add_empty_one_group(app):
     app.group.create(Group(name="123", header="", footer=" "))
     app.session.logout()
 
-# ____ End test case
