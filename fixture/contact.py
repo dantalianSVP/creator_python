@@ -104,7 +104,13 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.Open_home_page()
 
-
+    def delete_all_contact(self):
+        wd = self.app.wd
+        self.Open_home_page()
+        wd.find_element_by_xpath("//input[@id='MassCB']").click()
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+        self.Open_home_page()
 
 
     def open_page_for_create_new_contact(self):
