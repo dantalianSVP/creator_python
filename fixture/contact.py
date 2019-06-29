@@ -10,17 +10,6 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
-    def zapolnenie_dop_poley(self, addition_properties):
-        wd = self.app.wd
-        wd.find_element_by_name("address2").click()
-        wd.find_element_by_name("address2").clear()
-        wd.find_element_by_name("address2").send_keys("%s" % addition_properties.address2)
-        wd.find_element_by_name("phone2").click()
-        wd.find_element_by_name("phone2").clear()
-        wd.find_element_by_name("phone2").send_keys("%s" % addition_properties.phone2)
-        wd.find_element_by_name("notes").click()
-        wd.find_element_by_name("notes").clear()
-        wd.find_element_by_name("notes").send_keys("%s" % addition_properties.notes)
 
     def zapolnenie_aday(self):
         wd = self.app.wd
@@ -48,7 +37,7 @@ class ContactHelper:
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys("2008")
 
-    def filling_form_to_contact(self, properties, addition_properties):
+    def filling_form_to_contact(self, properties,):
         wd = self.app.wd
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -88,24 +77,23 @@ class ContactHelper:
         wd.find_element_by_name("email").send_keys("%s" % properties.email)
         wd.find_element_by_name("email2").click()
         wd.find_element_by_name("email2").clear()
-        wd.find_element_by_name("email2").send_keys("%s" % addition_properties.email2)
+        wd.find_element_by_name("email2").send_keys("%s" % properties.email2)
         wd.find_element_by_name("email3").click()
         wd.find_element_by_name("email3").clear()
-        wd.find_element_by_name("email3").send_keys("%s" % addition_properties.email3)
+        wd.find_element_by_name("email3").send_keys("%s" % properties.email3)
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys("qwqw")
         wd.find_element_by_name("bday").click()
-        # select date of drop-list
-        Select(wd.find_element_by_name("bday")).select_by_visible_text("5")
-        # transfer value "5"
-        wd.find_element_by_xpath("//option[@value='5']").click()
-        wd.find_element_by_name("bmonth").click()
-        Select(wd.find_element_by_name("bmonth")).select_by_visible_text("October")
-        wd.find_element_by_xpath("//option[@value='October']").click()
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys("2008")
+        wd.find_element_by_name("address2").click()
+        wd.find_element_by_name("address2").clear()
+        wd.find_element_by_name("address2").send_keys("%s" % properties.address2)
+        wd.find_element_by_name("phone2").click()
+        wd.find_element_by_name("phone2").clear()
+        wd.find_element_by_name("phone2").send_keys("%s" % properties.phone2)
+        wd.find_element_by_name("notes").click()
+        wd.find_element_by_name("notes").clear()
+        wd.find_element_by_name("notes").send_keys("%s" % properties.notes)
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -166,9 +154,6 @@ class ContactHelper:
         wd.find_element_by_name("email").send_keys("%s" % properties.email)
         wd.find_element_by_name("update").click()
         self.Open_home_page()
-
-
-
 
     def open_page_for_create_new_contact(self):
         wd = self.app.wd
