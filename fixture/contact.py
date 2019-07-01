@@ -39,6 +39,9 @@ class ContactHelper:
 
     def filling_form_to_contact(self, properties,):
         wd = self.app.wd
+        self.fill_form(properties,wd)
+
+    def fill_form(self, properties, wd):
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys("%s" % properties.firstname)
@@ -83,8 +86,7 @@ class ContactHelper:
         wd.find_element_by_name("email3").send_keys("%s" % properties.email3)
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
-        wd.find_element_by_name("homepage").send_keys("qwqw")
-        wd.find_element_by_name("bday").click()
+        wd.find_element_by_name("homepage").send_keys("%s" % properties.homepage)
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys("%s" % properties.address2)
@@ -95,12 +97,35 @@ class ContactHelper:
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys("%s" % properties.notes)
 
+    def delete_first_contact(self):
+        wd = self.app.wd
+        self.Open_home_page()
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+        self.Open_home_page()
+
+    def Open_home_page(self, ):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+
+    def delete_all_contact(self):
+        wd = self.app.wd
+        self.Open_home_page()
+        wd.find_element_by_xpath("//input[@id='MassCB']").click()
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+        self.Open_home_page()
+
+    def edit_contact(self, properties):
+        wd = self.app.wd
+        self.Open_home_page()
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        self.fill_form(properties, wd)
+        wd.find_element_by_name("update").click()
+        self.Open_home_page()
 
     def open_page_for_create_new_contact(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
-
-
-    def Open_home_page(self,):
-        wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
