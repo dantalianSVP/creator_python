@@ -1,7 +1,5 @@
 from selenium import webdriver
 
-from fixture.delcont import ModifyContact
-from fixture.modifygroup import ModifyGroup
 from fixture.session import SessionHelper
 from fixture.group import GroupHelper
 from fixture.contact import ContactHelper
@@ -14,8 +12,6 @@ class Application:
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
-        self.delcont = ModifyContact(self)
-        self.modifygroup = ModifyGroup(self)
 
 
 
