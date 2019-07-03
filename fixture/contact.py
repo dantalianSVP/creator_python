@@ -42,7 +42,7 @@ class ContactHelper:
 
     def filling_form_to_contact(self, properties,):
         wd = self.app.wd
-        self.fill_form(properties,wd)
+        self.fill_form(properties)
 
     def fill_form(self, properties):
         wd = self.app.wd
@@ -114,3 +114,8 @@ class ContactHelper:
         self.zapolnenie_aday()
         self.sumbit_contact()
         self.Open_home_page()
+
+    def count(self):
+        wd = self.app.wd
+        self.Open_home_page()
+        return len(wd.find_elements_by_name("selected[]"))
