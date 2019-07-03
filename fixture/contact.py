@@ -82,15 +82,9 @@ class ContactHelper:
 
     def Open_home_page(self, ):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not len(wd.find_elements_by_name("Delete")) > 0:
+            wd.find_element_by_link_text("home").click()
 
-    def delete_all_contact(self):
-        wd = self.app.wd
-        self.Open_home_page()
-        wd.find_element_by_xpath("//input[@id='MassCB']").click()
-        wd.find_element_by_xpath("//input[@value='Delete']").click()
-        wd.switch_to.alert.accept()
-        self.Open_home_page()
 
     def edit_contact(self, properties):
         wd = self.app.wd
@@ -103,7 +97,8 @@ class ContactHelper:
 
     def open_page_for_create_new_contact(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        if not (wd.current_url.endswith("//edit.php") and len(wd.find_elements_by_name("submit")) > 0):
+            wd.find_element_by_link_text("add new").click()
 
 
     def create_cont(self, properties):
