@@ -1,5 +1,8 @@
 from selenium.webdriver.support.ui import Select
 
+
+
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -41,61 +44,33 @@ class ContactHelper:
         wd = self.app.wd
         self.fill_form(properties,wd)
 
-    def fill_form(self, properties, wd):
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys("%s" % properties.firstname)
-        wd.find_element_by_name("middlename").click()
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys("%s" % properties.middlename)
-        wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys("%s" % properties.lastname)
-        wd.find_element_by_name("nickname").click()
-        wd.find_element_by_name("nickname").clear()
-        wd.find_element_by_name("nickname").send_keys("%s" % properties.nickname)
-        wd.find_element_by_name("title").click()
-        wd.find_element_by_name("title").clear()
-        wd.find_element_by_name("title").send_keys("%s" % properties.title)
-        wd.find_element_by_name("company").click()
-        wd.find_element_by_name("company").clear()
-        wd.find_element_by_name("company").send_keys("%s" % properties.company)
-        wd.find_element_by_name("address").click()
-        wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys("%s" % properties.address)
-        wd.find_element_by_name("home").click()
-        wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys("%s" % properties.home)
-        wd.find_element_by_name("mobile").click()
-        wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys("%s" % properties.mobile)
-        wd.find_element_by_name("work").click()
-        wd.find_element_by_name("work").clear()
-        wd.find_element_by_name("work").send_keys("%s" % properties.work)
-        wd.find_element_by_name("fax").click()
-        wd.find_element_by_name("fax").clear()
-        wd.find_element_by_name("fax").send_keys("%s" % properties.fax)
-        wd.find_element_by_name("email").click()
-        wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys("%s" % properties.email)
-        wd.find_element_by_name("email2").click()
-        wd.find_element_by_name("email2").clear()
-        wd.find_element_by_name("email2").send_keys("%s" % properties.email2)
-        wd.find_element_by_name("email3").click()
-        wd.find_element_by_name("email3").clear()
-        wd.find_element_by_name("email3").send_keys("%s" % properties.email3)
-        wd.find_element_by_name("homepage").click()
-        wd.find_element_by_name("homepage").clear()
-        wd.find_element_by_name("homepage").send_keys("%s" % properties.homepage)
-        wd.find_element_by_name("address2").click()
-        wd.find_element_by_name("address2").clear()
-        wd.find_element_by_name("address2").send_keys("%s" % properties.address2)
-        wd.find_element_by_name("phone2").click()
-        wd.find_element_by_name("phone2").clear()
-        wd.find_element_by_name("phone2").send_keys("%s" % properties.phone2)
-        wd.find_element_by_name("notes").click()
-        wd.find_element_by_name("notes").clear()
-        wd.find_element_by_name("notes").send_keys("%s" % properties.notes)
+    def fill_form(self, properties):
+        wd = self.app.wd
+        self.change_field_value("firstname", properties.firstname)
+        self.change_field_value("middlename", properties.middlename)
+        self.change_field_value("lastname", properties.lastname)
+        self.change_field_value("nickname", properties.nickname)
+        self.change_field_value("title", properties.title)
+        self.change_field_value("company", properties.company)
+        self.change_field_value("address", properties.address)
+        self.change_field_value("home", properties.home)
+        self.change_field_value("mobile", properties.mobile)
+        self.change_field_value("work", properties.work)
+        self.change_field_value("fax", properties.fax)
+        self.change_field_value("email", properties.email)
+        self.change_field_value("email2", properties.email2)
+        self.change_field_value("email3", properties.email3)
+        self.change_field_value("homepage", properties.homepage)
+        self.change_field_value("address2", properties.address2)
+        self.change_field_value("phone2", properties.phone2)
+        self.change_field_value("notes", properties.notes)
+
+    def change_field_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys("%s" % text)
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -129,3 +104,13 @@ class ContactHelper:
     def open_page_for_create_new_contact(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
+
+
+    def create_cont(self, properties):
+        wd = self.app.wd
+        self.open_page_for_create_new_contact()
+        self.filling_form_to_contact(properties)
+        self.zapolnenie_bday()
+        self.zapolnenie_aday()
+        self.sumbit_contact()
+        self.Open_home_page()

@@ -2,7 +2,8 @@
 
 class Properties:
 
-    def __init__(self, firstname,middlename,lastname,nickname,company,address,home,mobile,email,title,work,fax,address2, phone2,notes,email2,email3,homepage ):
+    def __init__(self, firstname=None,middlename=None,lastname=None,nickname=None,company=None,address=None,home=None,
+                 mobile=None,email=None,title=None,work=None,fax=None,address2=None, phone2=None,notes=None,email2=None,email3=None,homepage=None):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
