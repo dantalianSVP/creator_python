@@ -97,7 +97,7 @@ class ContactHelper:
         self.Open_home_page()
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        self.fill_form(properties, wd)
+        self.fill_form(properties)
         wd.find_element_by_name("update").click()
         self.Open_home_page()
 
