@@ -114,3 +114,5 @@ class ContactHelper:
         wd = self.app.wd
         self.Open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+
