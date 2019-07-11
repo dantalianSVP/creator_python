@@ -1,5 +1,5 @@
 from selenium.webdriver.support.ui import Select
-
+from model.properties import Properties
 
 
 
@@ -90,10 +90,12 @@ class ContactHelper:
         wd = self.app.wd
         self.Open_home_page()
         wd.find_element_by_name("selected[]").click()
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        self.click_edit(wd)
         self.fill_form(properties)
         wd.find_element_by_name("update").click()
         self.Open_home_page()
+
+
 
     def open_page_for_create_new_contact(self):
         wd = self.app.wd
@@ -114,5 +116,18 @@ class ContactHelper:
         wd = self.app.wd
         self.Open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    clist = None
+
+    def get_cont_list(self):
+        wd = self.app.wd
+        self.Open_home_page()
+        self.clist = []
+        for element in wd.find_elements_by_xpath("//*[@name = 'entry']"):
+            text = element.text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            self.clist.append(Properties(firstname=text, id=id))
+        return list(self.clist)
+
 
 
