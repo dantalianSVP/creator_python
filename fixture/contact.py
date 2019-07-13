@@ -119,15 +119,17 @@ class ContactHelper:
 
     clist = None
 
-    def get_cont_list(self):
-        wd = self.app.wd
-        self.Open_home_page()
-        self.clist = []
-        for element in wd.find_elements_by_xpath("//*[@name = 'entry']"):
-            text = element.text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            self.clist.append(Properties(firstname=text, id=id))
+    def get_contact_list(self):
+        if self.clist is None:
+            wd = self.app.wd
+            self.Open_home_page()
+            self.clist = []
+            for element in wd.find_elements_by_xpath("//*[@name = 'entry']"):
+                cells = element.find_elements_by_tag_name("td")
+                id = cells[0].find_element_by_name("selected[]").get_attribute("value")
+                lastname = cells[1].text
+                firstname = cells[2].text
+                self.clist.append(Properties(id=id, lastname=lastname, firstname=firstname))
         return list(self.clist)
-
 
 
