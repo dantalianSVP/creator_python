@@ -27,10 +27,12 @@ class Properties:
 
 
     def __repr__(self):
-           return "%s:%s" % (self.id, self.firstname)
+           return "%s:%s%s" % (self.id, self.firstname, self.lastname)
 
     def __eq__(self, other):
-          return (self.id is None or other.id is None or self.id == other.id) and self.firstname == other.firstname
+        return (self.id is None or other.id is None or self.id == other.id) \
+               and (self.firstname is None or other.firstname is None or self.firstname == other.firstname) \
+               and (self.lastname is None or other.lastname is None or self.lastname == other.lastname)
 
 
 
