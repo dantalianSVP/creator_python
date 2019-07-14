@@ -79,6 +79,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         self.Open_home_page()
+        self.clist = None
 
     def Open_home_page(self, ):
         wd = self.app.wd
@@ -90,10 +91,11 @@ class ContactHelper:
         wd = self.app.wd
         self.Open_home_page()
         wd.find_element_by_name("selected[]").click()
-        self.click_edit(wd)
+        self.click_edit()
         self.fill_form(properties)
         wd.find_element_by_name("update").click()
         self.Open_home_page()
+        self.clist = None
 
 
 
@@ -111,6 +113,7 @@ class ContactHelper:
         self.zapolnenie_aday()
         self.sumbit_contact()
         self.Open_home_page()
+        self.clist = None
 
     def count(self):
         wd = self.app.wd
@@ -132,4 +135,7 @@ class ContactHelper:
                 self.clist.append(Properties(id=id, lastname=lastname, firstname=firstname))
         return list(self.clist)
 
+    def click_edit(self):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
 
