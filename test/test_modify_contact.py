@@ -10,12 +10,12 @@ def test_edit_contact(app):
                                            email2="eee", email3="PPP", address2="ddd", phone2="123", notes="eee",
                                            homepage='TATATA'))
     #app.contact.edit_contact(Properties(firstname="DIMITRASH"))
+    clist = Properties(firstname="FAFAFAFAFAFAFAFAFFAFAF")
     old_clist = app.contact.get_contact_list()
     index = randrange(len(old_clist))
-    clist = Properties(middlename="GGWP")
     clist.id = old_clist[index].id
     app.contact.edit_contact_by_index(index, clist)
     new_clist = app.contact.get_contact_list()
-    assert old_clist == new_clist
+    assert len(old_clist) == app.contact.count()
     old_clist[index] = clist
     assert sorted(old_clist, key=Properties.id_or_max) == sorted(new_clist, key=Properties.id_or_max)

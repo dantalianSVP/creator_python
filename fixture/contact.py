@@ -88,17 +88,21 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
+
+    def select_contact_by_index_for_edit(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
     def Open_home_page(self, ):
         wd = self.app.wd
         if not len(wd.find_elements_by_name("Delete")) > 0:
             wd.find_element_by_link_text("home").click()
 
 
-    def edit_contact_by_index(self,index, properties):
+    def edit_contact_by_index(self,index,properties):
         wd = self.app.wd
         self.Open_home_page()
-        self.select_contact_by_index(index)
-        self.click_edit()
+        self.click_edit(index)
         self.fill_form(properties)
         wd.find_element_by_name("update").click()
         self.Open_home_page()
@@ -142,7 +146,7 @@ class ContactHelper:
                 self.clist.append(Properties(id=id, lastname=lastname, firstname=firstname))
         return list(self.clist)
 
-    def click_edit(self):
+    def click_edit(self, index):
         wd = self.app.wd
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
 
