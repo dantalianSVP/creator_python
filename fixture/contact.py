@@ -1,6 +1,6 @@
 from selenium.webdriver.support.ui import Select
-from model.properties import Properties
 
+from model.properties import Properties
 
 
 class ContactHelper:
@@ -8,11 +8,9 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
-
     def sumbit_contact(self):
         wd = self.app.wd
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
-
 
     def zapolnenie_aday(self):
         wd = self.app.wd
@@ -26,7 +24,7 @@ class ContactHelper:
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys("2009")
 
-    def zapolnenie_bday(self,):
+    def zapolnenie_bday(self, ):
         wd = self.app.wd
         wd.find_element_by_name("bday").click()
         # select date of drop-list
@@ -40,7 +38,7 @@ class ContactHelper:
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys("2008")
 
-    def filling_form_to_contact(self, properties,):
+    def filling_form_to_contact(self, properties, ):
         wd = self.app.wd
         self.fill_form(properties)
 
@@ -88,7 +86,6 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
-
     def select_contact_by_index_for_edit(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
@@ -98,8 +95,7 @@ class ContactHelper:
         if not len(wd.find_elements_by_name("Delete")) > 0:
             wd.find_element_by_link_text("home").click()
 
-
-    def edit_contact_by_index(self,index,properties):
+    def edit_contact_by_index(self, index, properties):
         wd = self.app.wd
         self.Open_home_page()
         self.click_edit(index)
@@ -108,13 +104,17 @@ class ContactHelper:
         self.Open_home_page()
         self.clist = None
 
-
+    def edit_contact_byy_index(self, index):
+        wd = self.app.wd
+        self.Open_home_page()
+        row = wd.find_elements_by_name("empty")[index]
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_elements_by_tag_name("a").click
 
     def open_page_for_create_new_contact(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("//edit.php") and len(wd.find_elements_by_name("submit")) > 0):
             wd.find_element_by_link_text("add new").click()
-
 
     def create_cont(self, properties):
         wd = self.app.wd
@@ -141,12 +141,27 @@ class ContactHelper:
             for element in wd.find_elements_by_xpath("//*[@name = 'entry']"):
                 cells = element.find_elements_by_tag_name("td")
                 id = cells[0].find_element_by_name("selected[]").get_attribute("value")
+                all_phones = cells[5].text.splitlines()
                 lastname = cells[1].text
                 firstname = cells[2].text
-                self.clist.append(Properties(id=id, lastname=lastname, firstname=firstname))
+                self.clist.append(Properties(id=id, lastname=lastname, firstname=firstname,
+                                             homephone=all_phones[0], mobilephone=all_phones[1],
+                                             workphone=all_phones[2], secondaryphone=all_phones[3]))
         return list(self.clist)
 
     def click_edit(self, index):
         wd = self.app.wd
         wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
 
+    def get_contact_info_from_edit_page(self, index):
+        wd = self.app.wd
+        self.edit_contact_by_index(index)
+        firstname = wd.find_element_by_name("firstname").get_attribute("value")
+        lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        id = wd.find_element_by_name("id").get_attribute("value")
+        homephone = wd.find_element_by_name("home").get_attribute("value")
+        workphone = wd.find_element_by_name("work").get_attribute("value")
+        mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
+        secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        return Properties(firstname=firstname, lastname=lastname, id=id, homephone=homephone,
+                          mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
