@@ -4,6 +4,7 @@ from sys import maxsize
 class Properties:
 
     def __init__(self, homephone = None, firstname=None, middlename=None, lastname=None, nickname=None, company=None,
+                 all_phones_from_home_page=None,
                  address=None, home=None,
                  mobile=None, email=None, title=None, work=None, fax=None, address2=None,
                  phone2=None, notes=None, email2=None,
@@ -32,6 +33,7 @@ class Properties:
         self.homephone = homephone
         self.secondaryphone = secondaryphone
         self.id = id
+        self.all_phones_from_home_page = all_phones_from_home_page
 
     def __repr__(self):
         return "%s:%s%s" % (self.id, self.firstname, self.lastname)

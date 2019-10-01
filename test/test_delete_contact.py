@@ -14,4 +14,3 @@ def test_delete_contact(app):
     assert len(old_clist) -1 == len(new_clist)
     old_clist[index:index+1] = []
     assert old_clist == new_clist
-
