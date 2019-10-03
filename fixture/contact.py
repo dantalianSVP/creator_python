@@ -155,9 +155,8 @@ class ContactHelper:
                 all_addreses = cells[3].text
                 all_emails = cells[4].text
                 self.contact_cache.append(Properties(firstname=firstname, lastname=lastname, id=id,
-                                                  all_phones_from_home_page=all_phones,
-                                                  all_emails_from_home_page=all_emails, address=all_addreses))
-
+                                                     all_phones_from_home_page=all_phones,
+                                                     all_emails_from_home_page=all_emails, address=all_addreses))
 
     def get_contact_list(self):
         if self.clist is None:
@@ -172,7 +171,7 @@ class ContactHelper:
                 all_addreses = cells[3].text
                 lastname = cells[1].text
                 firstname = cells[2].text
-                self.clist.append(Properties(id=id, lastname=lastname,address=all_addreses,
+                self.clist.append(Properties(id=id, lastname=lastname, address=all_addreses,
                                              firstname=firstname, all_phones_from_home_page=all_phones,
                                              all_emails_from_home_page=all_emails))
         return list(self.clist)
@@ -181,7 +180,7 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
 
-    def get_contact_info_from_edit_page(self,index):
+    def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
         self.open_contact_to_edit_by_index(index)
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
@@ -196,13 +195,10 @@ class ContactHelper:
         email2 = wd.find_element_by_name("email2").get_attribute("value")
         email3 = wd.find_element_by_name("email3").get_attribute("value")
         return Properties(firstname=firstname, lastname=lastname, id=id, homephone=homephone,
-                          mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone,address=address,
-                          email=email,email2=email2, email3=email3)
+                          mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone, address=address,
+                          email=email, email2=email2, email3=email3)
 
-
-##имя, фамилия, адрес, телефоны, адреса электронной почты
-
-
+    ##имя, фамилия, адрес, телефоны, адреса электронной почты
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
@@ -212,9 +208,10 @@ class ContactHelper:
         workphone = re.search("W: (.*)", text).group(1)
         mobilephone = re.search("M: (.*)", text).group(1)
         secondaryphone = re.search("P: (.*)", text).group(1)
-        return Properties(homephone=homephone,mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
+        return Properties(homephone=homephone, mobilephone=mobilephone, workphone=workphone,
+                          secondaryphone=secondaryphone)
 
-    def get_contact_from_view_page(self,index):
+    def get_contact_from_view_page(self, index):
         wd = self.app.wd
         self.open_contact_view_by_index(index)
         text = wd.find_element_by_id("content").text
