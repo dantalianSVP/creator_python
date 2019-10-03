@@ -4,7 +4,7 @@ import pytest
 import random
 import string
 
-
+# генерация тестовых данных
 def random_string(prefix, maxlen):
     symbol = string.ascii_letters + string.digits + " "
     return prefix + "".join([random.choice(symbol) for i in range(random.randrange(maxlen))])
@@ -18,7 +18,7 @@ testdata = [
 
 ]
 
-
+# передача данных в тест
 @pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
 def test_add_group(app, group):
     old_groups = app.group.get_group_list()

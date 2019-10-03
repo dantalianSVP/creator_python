@@ -4,7 +4,7 @@ import pytest
 import random
 import string
 
-
+# генерация тестовых данных
 def random_string(prefix, maxlen):
     symbol = string.ascii_letters + string.digits + " "
     return prefix + "".join([random.choice(symbol) for i in range(random.randrange(maxlen))])
@@ -37,6 +37,9 @@ testdata = [
 
 ]
 
+
+
+# передача данных в тест
 # @pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
 def test_add_contact(app):#, contact):
     for contact in testdata:
