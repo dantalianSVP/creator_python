@@ -2,7 +2,7 @@ import random
 import string
 from model.group import Group
 import os.path
-import json
+import jsonpickle
 import getopt
 import sys
 
@@ -28,6 +28,9 @@ def random_string(prefix, maxlen):
     return prefix + "".join([random.choice(symbol) for i in range(random.randrange(maxlen))])
 
 
+
+
+
 testdata = [
     Group(name=name, header=header, footer=footer)
     for name in ["", random_string("name", n)]
@@ -39,4 +42,5 @@ testdata = [
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 
 with open(file, "w") as out:
-    out.write(json.dumps(testdata, default=lambda x: x.__dict__, indent=2))
+    jsonpickle.set_encoder_options("json", indent=2)
+    out.write(jsonpickle.encode(testdata))
