@@ -4,6 +4,7 @@ import pytest
 import random
 import string
 
+
 # генерация тестовых данных
 def random_string(prefix, maxlen):
     symbol = string.ascii_letters + string.digits + " "
@@ -11,37 +12,28 @@ def random_string(prefix, maxlen):
 
 
 testdata = [
-    Properties(firstname=firstname, middlename=middlename, lastname=lastname,
-               nickname=nickname, company=company, address=address, title=title,
-               home=home, mobile=mobile, email=email, work=work, fax=fax,
-               email2=email2, email3=email3, address2=address2, phone2=phone2,
-               notes=notes, homepage=homepage)
-    for firstname in ["", random_string("firstname", 10)]
-    for middlename in ["", random_string("middlename", 10)]
-    for lastname in ["", random_string("lastname", 10)]
-    for nickname in ["", random_string("nickname", 10)]
-    for company in ["", random_string("company", 10)]
-    for address in ["", random_string("address", 10)]
-    for title in ["", random_string("title", 10)]
-    for home in ["", random_string("home", 10)]
-    for mobile in ["", random_string("mobile", 10)]
-    for email in ["", random_string("email", 10)]
-    for work in ["", random_string("work", 10)]
-    for email2 in ["", random_string("email2", 10)]
-    for email3 in ["", random_string("email3", 10)]
-    for address2 in ["", random_string("address2", 10)]
-    for phone2 in ["", random_string("phone2", 10)]
-    for notes in ["", random_string("notes", 10)]
-    for homepage in ["", random_string("homepage", 10)]
-    for fax in ["", random_string("fax", 10)]
-
-]
-
-
+               Properties(firstname="", middlename="", lastname="",
+                          nickname="", company="", address="", title="",
+                          home="", mobile="", email="", work="", fax="",
+                          email2="", email3="", address2="", phone2="",
+                          notes="", homepage="")] + [
+               Properties(firstname=random_string("firstname", 10), middlename=random_string("middlename", 10),
+                          lastname=random_string("lastname", 10), nickname=random_string("nickname", 10),
+                          company=random_string("company", 10),
+                          address=random_string("address", 10), title=random_string("title", 10),
+                          home=random_string("home", 10), mobile=random_string("mobile", 10),
+                          email=random_string("email", 10), work=random_string("work", 10),
+                          fax=random_string("fax", 10),
+                          email2=random_string("email2", 10), email3=random_string("email3", 10),
+                          address2=random_string("address2", 10),
+                          phone2=random_string("phone2", 10), notes=random_string("notes", 10),
+                          homepage=random_string("homepage", 10))
+               for i in range(5)
+           ]
 
 # передача данных в тест
-# @pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
-def test_add_contact(app):#, contact):
+@pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
+def test_add_contact(app, contact):
     for contact in testdata:
         old_clist = app.contact.get_contact_list()
         app.contact.create_cont(contact)
