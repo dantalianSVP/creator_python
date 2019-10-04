@@ -13,12 +13,13 @@ target = None
 # Загрузка конфигурации с кешированием
 def load_config(file):
     global target
-    config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), file)
-    with open(config_file) as f:
-        target = json.load(f)
+    if target is None:
+        config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), file)
+        with open(config_file) as f:
+            target = json.load(f)
     return target
 
-
+# Фикстура взаимодействия в UI
 @pytest.fixture
 def app(request):
     global fixture
@@ -29,16 +30,19 @@ def app(request):
     fixture.session.ensure_Login(username=web_config['username'], password=web_config['password'])
     return fixture
 
+
 # Фикстура подключения базы
 @pytest.fixture(scope="session")
 def db(request):
-    db_config = load_config(request.config.getoption("--target")) ["db_config"]
-    dbfixture = DbFixture(host=db_config['host'], name=db_config['name'], user=db_config['user'], password= db_config['password']  )
+    db_config = load_config(request.config.getoption("--target"))["db"]
+    dbfixture = DbFixture(host=db_config["host"], name=db_config["name"], user=db_config["user"],
+                          password=db_config["password"])
+
     def fin():
-        dbfixture.destroy
+        dbfixture.destroy()
+
     request.addfinalizer(fin)
     return dbfixture
-
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -64,7 +68,6 @@ def pytest_generate_tests(metafunc):
         elif fixture.startswith("json_"):
             testdata = load_from_json(fixture[5:])
             metafunc.parametrize(fixture, testdata, ids=[str(x) for x in testdata])
-
 
 
 # выполняем импорт модуля и берем из него данные (testdata)
