@@ -10,8 +10,9 @@ class DbFixture:
         self.name = name
         self.user = user
         self.password = password
-        self.connection = pymysql.connect(host=host, database=name, user=user, password=password)
+        self.connection = pymysql.connect(host=host, database=name, user=user, password=password, autocommit=True)
 
+# Метод загрузки информации о группах и о контактах из БД
     def get_group_list(self):
         list = []
         cursor = self.connection.cursor()
