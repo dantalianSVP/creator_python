@@ -1,5 +1,6 @@
 from model.group import Group
 import pymysql.cursors
+from model.properties import Properties
 
 
 # Создали класс для конекта к БД
@@ -25,6 +26,20 @@ class DbFixture:
         finally:
             cursor.close()
         return list
+
+    def get_contact_list(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select id, firstname, lastname from addressbook where deprecated = '0000-00-00 00:00:00' ")
+            for row in cursor:
+                (id, firstname, lastname) = row
+                # помещаем объект в список
+                list.append(Properties(id=str(id), firstname=firstname, lastname=lastname ))
+        finally:
+            cursor.close()
+        return list
+
 
     # Разрушение фикстуры (метод)
     def destroy(self):
