@@ -83,6 +83,20 @@ class ContactHelper:
         self.Open_home_page()
         self.clist = None
 
+    def delete_contact_by_id(self,id):
+        wd = self.app.wd
+        self.Open_home_page()
+        self.select_contact_by_id(id)
+        wd.find_element_by_css_selector("input[value='Delete']").click()
+        wd.switch_to.alert.accept()
+        self.Open_home_page()
+        self.clist = None
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_id(id).click()
+
+
     def select_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
