@@ -12,9 +12,9 @@ def test_edit_contact(app,db):
     #app.contact.edit_contact(Properties(firstname="DIMITRASH"))
     old_clist = db.get_contact_list()
     cont = random.choice(old_clist)
-    ind = old_clist.index(cont)
+    inq = old_clist.index(cont)
     clist = Properties(firstname="FAFAFAFAFAFAFAFAFFAFAF")
-    clist.id = old_clist[ind].id
+    clist.id = old_clist[inq].id
     app.contact.edit_contact_by_id(clist.id, clist)
     new_clist = db.get_contact_list()
     assert len(old_clist) == app.contact.count()
