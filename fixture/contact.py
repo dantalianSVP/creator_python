@@ -83,7 +83,7 @@ class ContactHelper:
         self.Open_home_page()
         self.clist = None
 
-    def delete_contact_by_id(self,id):
+    def delete_contact_by_id(self, id):
         wd = self.app.wd
         self.Open_home_page()
         self.select_contact_by_id(id)
@@ -96,7 +96,6 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_id(id).click()
 
-
     def select_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
@@ -104,6 +103,10 @@ class ContactHelper:
     def select_contact_by_index_for_edit(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def click_edit_button_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_xpath('//a[@href="edit.php?id=%s"]' % id).click()
 
     def Open_home_page(self, ):
         wd = self.app.wd
@@ -114,6 +117,15 @@ class ContactHelper:
         wd = self.app.wd
         self.Open_home_page()
         self.click_edit(index)
+        self.fill_form(properties)
+        wd.find_element_by_name("update").click()
+        self.Open_home_page()
+        self.clist = None
+
+    def edit_contact_by_id(self,id, properties):
+        wd = self.app.wd
+        self.Open_home_page()
+        self.click_edit_button_by_id(id)
         self.fill_form(properties)
         wd.find_element_by_name("update").click()
         self.Open_home_page()
