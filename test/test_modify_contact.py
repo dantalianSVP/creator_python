@@ -2,7 +2,7 @@ import random
 
 from model.properties import Properties
 
-def test_edit_contact(app,db):
+def test_edit_contact(app,db, check_ui):
     if app.contact.count() == 0:
         app.contact.create_cont(Properties(firstname="QQQ", middlename="WWW", lastname="EEE", nickname="SSS",
                                            company="CCC", address="GGG", title="111", home="zzz", mobile="VVV",
@@ -18,4 +18,5 @@ def test_edit_contact(app,db):
     app.contact.edit_contact_by_id(clist.id, clist)
     new_clist = db.get_contact_list()
     assert len(old_clist) == app.contact.count()
-    assert sorted(old_clist, key=Properties.id_or_max) == sorted(new_clist, key=Properties.id_or_max)
+    if check_ui:
+        assert sorted(old_clist, key=Properties.id_or_max) == sorted(new_clist, key=Properties.id_or_max)
