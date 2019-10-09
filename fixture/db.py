@@ -41,6 +41,22 @@ class DbFixture:
         return list
 
 
+    def get_contact_by_id(self, id_in):
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("SELECT id, firstname, lastname, middlename, nickname, company, "
+                           "title, address, email, email2, email3, home, mobile, work, phone2 "
+                           "FROM addressbook WHERE deprecated='0000-00-00 00:00:00' and id='%s'" % id_in)
+            (id, firstname, lastname, middlename, nickname, company, title,
+             address, email, email2, email3, home, mobile, work, phone2) = cursor.fetchone()
+            contact_return = Properties(id=str(id), firstname=firstname, lastname=lastname, middlename=middlename,
+                                     nickname=nickname, company=company, title=title, address=address, email=email,
+                                     email2=email2, email3=email3, homephone=home, mobilephone=mobile, workphone=work,
+                                     secondaryphone=phone2)
+        finally:
+            cursor.close()
+        return contact_return
+
     # Разрушение фикстуры (метод)
     def destroy(self):
         self.connection.close()

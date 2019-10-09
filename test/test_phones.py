@@ -18,14 +18,16 @@ def test_phones_contact_view_page(app):
 
 
 
-def test_field_on_contact_page(app):
-    contact_from_home_page = app.contact.get_contact_list()[0]
-    contact_from_edit_page = app.contact.get_contact_info_from_edit_page(0)
-    assert contact_from_home_page.all_emails_from_home_page == merge_mails_like_on_home_page(contact_from_edit_page)
-    assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_edit_page)
-    assert contact_from_home_page.address == contact_from_edit_page.address
-    assert contact_from_home_page.firstname == contact_from_edit_page.firstname
-    assert contact_from_home_page.lastname == contact_from_edit_page.lastname
+def test_field_on_contact_page(app, db):
+    #contact_from_home_page = app.contact.get_contact_list()[0]
+    #contact_from_edit_page = app.contact.get_contact_info_from_edit_page(0)
+    list_contacts = app.contact.get_contact_list()
+    for contact in list_contacts:
+        assert contact.firstname == db.get_contact_by_id(contact.id).firstname
+        assert contact.lastname == db.get_contact_by_id(contact.id).lastname
+        assert contact.address == db.get_contact_by_id(contact.id).address
+        assert contact.all_emails_from_home_page == merge_mails_like_on_home_page(db.get_contact_by_id(contact.id))
+        assert contact.all_phones_from_home_page == merge_phones_like_on_home_page(db.get_contact_by_id(contact.id))
 
 
 
