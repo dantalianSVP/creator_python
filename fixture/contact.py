@@ -184,6 +184,30 @@ class ContactHelper:
                                                      all_phones_from_home_page=all_phones,
                                                      all_emails_from_home_page=all_emails, address=all_addreses))
 
+
+    def add_contact_in_group(self, id_contact, id_group):
+        wd = self.app.wd
+        self.Open_home_page()
+        self.select_contact(id_contact)
+        wd.implicitly_wait(3)
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_name("to_group")).select_by_value(id_group)
+        wd.find_element_by_name("add").click()
+
+
+    def open_select_group(self, group_id):
+        wd = self.app.wd
+        self.Open_home_page()
+        select = Select(wd.find_element_by_css_selector("[name='group']"))
+        select.select_by_value("%s" % group_id)
+        # wd.find_element_by_css_selector("select[name=\"group\"]").click()
+        # wd.find_element_by_css_selector("option[value=\"%s\"]" % group_id).click()
+
+    def select_contact(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
+
     def get_contact_list(self):
         if self.clist is None:
             wd = self.app.wd

@@ -13,7 +13,7 @@ class DbFixture:
         self.password = password
         self.connection = pymysql.connect(host=host, database=name, user=user, password=password, autocommit=True)
 
-# Метод загрузки информации о группах и о контактах из БД
+    # Метод загрузки информации о группах и о контактах из БД
     def get_group_list(self):
         list = []
         cursor = self.connection.cursor()
@@ -35,11 +35,10 @@ class DbFixture:
             for row in cursor:
                 (id, firstname, lastname) = row
                 # помещаем объект в список
-                list.append(Properties(id=str(id), firstname=firstname, lastname=lastname ))
+                list.append(Properties(id=str(id), firstname=firstname, lastname=lastname))
         finally:
             cursor.close()
         return list
-
 
     def get_contact_by_id(self, id_in):
         cursor = self.connection.cursor()
@@ -50,9 +49,10 @@ class DbFixture:
             (id, firstname, lastname, middlename, nickname, company, title,
              address, email, email2, email3, home, mobile, work, phone2) = cursor.fetchone()
             contact_return = Properties(id=str(id), firstname=firstname, lastname=lastname, middlename=middlename,
-                                     nickname=nickname, company=company, title=title, address=address, email=email,
-                                     email2=email2, email3=email3, homephone=home, mobilephone=mobile, workphone=work,
-                                     secondaryphone=phone2)
+                                        nickname=nickname, company=company, title=title, address=address, email=email,
+                                        email2=email2, email3=email3, homephone=home, mobilephone=mobile,
+                                        workphone=work,
+                                        secondaryphone=phone2)
         finally:
             cursor.close()
         return contact_return
