@@ -113,6 +113,10 @@ class ContactHelper:
         if not len(wd.find_elements_by_name("Delete")) > 0:
             wd.find_element_by_link_text("home").click()
 
+    def return_to_contact_list(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+
     def edit_contact_by_index(self, index, properties):
         wd = self.app.wd
         self.Open_home_page()
@@ -122,7 +126,7 @@ class ContactHelper:
         self.Open_home_page()
         self.clist = None
 
-    def edit_contact_by_id(self,id, properties):
+    def edit_contact_by_id(self, id, properties):
         wd = self.app.wd
         self.Open_home_page()
         self.click_edit_button_by_id(id)
@@ -184,7 +188,6 @@ class ContactHelper:
                                                      all_phones_from_home_page=all_phones,
                                                      all_emails_from_home_page=all_emails, address=all_addreses))
 
-
     def add_contact_in_group(self, id_contact, id_group):
         wd = self.app.wd
         self.Open_home_page()
@@ -194,6 +197,13 @@ class ContactHelper:
         Select(wd.find_element_by_name("to_group")).select_by_value(id_group)
         wd.find_element_by_name("add").click()
 
+    def delete_contact_from_group(self, group, contact):
+        wd = self.app
+        self.open_select_group(group.id)
+        self.select_contact_by_id(contact.id)
+        wd.find_element_by_name("remove").click()
+        self.return_to_contact_list()
+        self.contact_cache = None
 
     def open_select_group(self, group_id):
         wd = self.app.wd
@@ -206,7 +216,6 @@ class ContactHelper:
     def select_contact(self, id):
         wd = self.app.wd
         wd.find_element_by_css_selector("input[value='%s']" % id).click()
-
 
     def get_contact_list(self):
         if self.clist is None:

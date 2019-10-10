@@ -74,6 +74,11 @@ class ORMFixture:
         return self.convert_groups_to_model(orm_contact.groups)
 
     @db_session
+    def get_not_empty_group_list(self):
+        return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup if len(g.contacts) > 0))
+
+
+    @db_session
     def get_id_of_group(self):
         ids = []
         groups = self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup))
