@@ -113,6 +113,12 @@ class ContactHelper:
         if not len(wd.find_elements_by_name("Delete")) > 0:
             wd.find_element_by_link_text("home").click()
 
+    def go_to_home_page(self):
+        wd = self.app.wd
+        if not (wd.current_url == "http://localhost/addressbook/"
+                and len(wd.find_elements_by_xpath("//input[@value='Send e-Mail']")) > 0):
+            wd.find_element_by_link_text("home").click()
+
     def return_to_contact_list(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
@@ -190,7 +196,7 @@ class ContactHelper:
 
     def add_contact_in_group(self, id_group, id_contact):
         wd = self.app.wd
-        self.Open_home_page()
+        self.go_to_home_page()
         self.select_contact(id_contact)
         wd.implicitly_wait(3)
         wd.find_element_by_name("to_group").click()
@@ -286,3 +292,6 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contact_view_by_index(index)
         text = wd.find_element_by_id("content").text
+
+
+

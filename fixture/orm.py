@@ -63,12 +63,6 @@ class ORMFixture:
             select(c for c in ORMFixture.ORMContact if c.deprecated is None and orm_group not in c.groups))
 
     @db_session
-    def get_contacts_not_in_group(self, group):
-        orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
-        return self.convert_contacts_to_model(
-            select(c for c in ORMFixture.ORMContact if c.deprecated is None and orm_group not in c.groups))
-
-    @db_session
     def get_groups_in_contact(self, contact):
         orm_contact = list(select(c for c in ORMFixture.ORMContact if c.id == contact.id))[0]
         return self.convert_groups_to_model(orm_contact.groups)
@@ -77,9 +71,26 @@ class ORMFixture:
     def get_not_empty_group_list(self):
         return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup if len(g.contacts) > 0))
 
+    @db_session
+    def verify_contact_in_group(self, group, contact):
+        group = Group(id=group.id)
+        group_contacts = self.get_contacts_in_group(group)
+        for group_contact in group_contacts:
+            if group_contact.id == contact.id:
+                return True
+        return False
+
 
     @db_session
     def get_id_of_group(self):
+        ids = []
+        groups = self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup))
+        for group in groups:
+            ids.append(group.id)
+        return max(ids)
+
+    @db_session
+    def get_id_of_new_group(self):
         ids = []
         groups = self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup))
         for group in groups:
