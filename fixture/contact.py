@@ -188,7 +188,7 @@ class ContactHelper:
                                                      all_phones_from_home_page=all_phones,
                                                      all_emails_from_home_page=all_emails, address=all_addreses))
 
-    def add_contact_in_group(self, id_contact, id_group):
+    def add_contact_in_group(self, id_group, id_contact):
         wd = self.app.wd
         self.Open_home_page()
         self.select_contact(id_contact)
@@ -204,6 +204,18 @@ class ContactHelper:
         wd.find_element_by_name("remove").click()
         self.return_to_contact_list()
         self.contact_cache = None
+
+    def dellete_contact_from_group(self, id_group, id_contact):
+        wd = self.app.wd
+        self.go_to_contact_in_group_page(id_group)
+        self.select_contact(id_contact)
+        wd.find_element_by_name("remove").click()
+
+    def go_to_contact_in_group_page(self, id):
+        wd = self.app.wd
+        if not (wd.current_url == "http://localhost/addressbook/?group=%s" % id
+                and len(wd.find_element_by_name("remove")) > 0):
+            wd.get("http://localhost/addressbook/?group=%s" % id)
 
     def open_select_group(self, group_id):
         wd = self.app.wd
